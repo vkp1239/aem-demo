@@ -22,12 +22,13 @@ import java.util.Map;
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL, adapters = Profile.class,
         resourceType = {ProfileImpl.RESOURCE_TYPE}
 )
-@Exporter(name = "jackson", extensions = "json",selector = "model",
+@Exporter(name = "jackson", extensions = "json", selector = "model",
         options = {@ExporterOption(name = "MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value = "false")})
 @Slf4j
 public class ProfileImpl implements Profile {
 
-    public  static final  String RESOURCE_TYPE = "demo/components/content/profile";
+    public static final String RESOURCE_TYPE = "demo/components/content/profile";
+
     @ValueMapValue
     String firstname;
 
@@ -126,6 +127,7 @@ public class ProfileImpl implements Profile {
     }
 
     public String getName() {
-        return firstname + " " +lastname;
+        return firstname + " " + lastname;
     }
+
 }
