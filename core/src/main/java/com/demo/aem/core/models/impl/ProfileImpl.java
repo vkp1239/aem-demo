@@ -3,29 +3,31 @@ package com.demo.aem.core.models.impl;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.demo.aem.core.models.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Via;
+import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-@Model(adaptables = {Resource.class,SlingHttpServletRequest.class}, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL, adapters = Profile.class)
+@Model(adaptables = {SlingHttpServletRequest.class},
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL, adapters = Profile.class,
+        resourceType = {ProfileImpl.RESOURCE_TYPE}
+)
+@Exporter(name = "jackson", extensions = "json",selector = "model",
+        options = {@ExporterOption(name = "MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value = "false")})
 @Slf4j
 public class ProfileImpl implements Profile {
-    private static final Logger log = LoggerFactory.getLogger(ProfileImpl.class);
+
+    public  static final  String RESOURCE_TYPE = "demo/components/content/profile";
     @ValueMapValue
     String firstname;
 
@@ -46,8 +48,6 @@ public class ProfileImpl implements Profile {
     Resource resource;
 
     @Self
-    @Via("request")
-    // Remove above two and use @SlingObject
     SlingHttpServletRequest slingHttpServletRequest;
 
     @ScriptVariable
@@ -66,26 +66,28 @@ public class ProfileImpl implements Profile {
     @ChildResource
     Resource skills;
 
-
-
+// Path for exporter
+// http://localhost:4502/content/demo/us/en/demo/jcr:content/root/container/container/profile.model.json
 
     @PostConstruct
     void init() {
-    log.info("Current Resource Path via Resource :- {}",resource.getPath());
-    log.info("Current Resource Path via Request {}",slingHttpServletRequest.getRequestPathInfo().getResourcePath());
-    log.info("Current Page Path via ScriptVariable {}",currentPage.getPath());
-    PageManager pageManager = resolver.adaptTo(PageManager.class);
-    log.info("Current Page Path via SlingObject's resolver {}",pageManager.getContainingPage(currentPage.getPath()).getPath());
-    log.info("Home Page name :- {}",homePageResource.getName());
+        log.info("Current Resource Path via Resource :- {}", resource.getPath());
+        log.info("Current Resource Path via Request {}", slingHttpServletRequest.getRequestPathInfo().getResourcePath());
+        log.info("Current Page Path via ScriptVariable {}", currentPage.getPath());
+        PageManager pageManager = resolver.adaptTo(PageManager.class);
+        log.info("Current Page Path via SlingObject's resolver {}", pageManager.getContainingPage(currentPage.getPath()).getPath());
+        log.info("Home Page name :- {}", homePageResource.getName());
 
     }
 
     @Override
+    @JsonIgnore
     public String getFirstName() {
         return firstname;
     }
 
     @Override
+    @JsonIgnore
     public String getLastName() {
         return lastname;
     }
@@ -96,6 +98,7 @@ public class ProfileImpl implements Profile {
     }
 
     @Override
+    @JsonProperty(value = "profile-image")
     public String getFileReference() {
         return fileReference;
     }
@@ -120,5 +123,9 @@ public class ProfileImpl implements Profile {
             skillList.add(values);
         }
         return skillList;
+    }
+
+    public String getName() {
+        return firstname + " " +lastname;
     }
 }
