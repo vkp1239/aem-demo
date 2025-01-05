@@ -1,0 +1,24 @@
+<div data-sly-use.profile ="com.demo.aem.core.models.Profile" class="container">
+   <div class="profile-section">
+      <img src="${profile.fileReference}" alt="Profile Picture" class="profile-pic">
+      <div class="profile-name">${profile.firstName} ${profile.lastName}</div>
+      <!-- Skills and Hobbies Container -->
+      <div class="skills-hobbies-container">
+         <div class="section">
+            <div class="section-title">Skills</div>
+            <div data-sly-list = ${profile.skills} class="section-content">
+               <span>${item.skill}</span>
+            </div>
+         </div>
+         <div class="section">
+            <div class="section-title">Hobbies</div>
+            <div data-sly-list = ${profile.hobbies} class="section-content">
+               <span>${item}</span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="bio-section">
+      <p>${profile.bio @context='html'}</p>
+   </div>
+</div>
