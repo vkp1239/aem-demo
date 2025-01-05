@@ -1,0 +1,67 @@
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .profile-section {
+            width: 30%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .skills-hobbies-container {
+            margin-top: 10px;
+            width: 100%; /* Match the width of the profile section */
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .section-content {
+            display: flex;
+            flex-wrap: wrap; /* Enable wrapping for long lists */
+            gap: 5px; /* Add spacing between items */
+            font-size: 12px;
+            max-width: 100%; /* Ensure content stays within container */
+        }
+
+        .section-content span {
+            padding: 2px 4px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .bio-section {
+            width: 70%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
