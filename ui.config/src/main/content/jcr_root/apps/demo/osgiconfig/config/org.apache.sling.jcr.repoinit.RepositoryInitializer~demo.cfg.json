@@ -2,6 +2,11 @@
     "scripts": [
         "create path (sling:OrderedFolder) /content/dam/demo",
         "create path (nt:unstructured) /content/dam/demo/jcr:content",
-        "set properties on /content/dam/demo/jcr:content\n  set cq:conf{String} to /conf/demo\n  set jcr:title{String} to \"Demo Sites Project\"\nend"
+        "create path (sling:OrderedFolder) /content/dam/demo/profile-content-fragment",
+        "create path (nt:unstructured) /content/dam/demo/profile-content-fragment/jcr:content",
+        "set properties on /content/dam/demo/jcr:content\n  set cq:conf{String} to /conf/demo\n  set jcr:title{String} to \"Demo Sites Project\"\nend",
+        "create path (cq:Page) /content/demo/us/en/profile",
+        "create path (cq:PageContent) /content/demo/us/en/profile/jcr:content"
+
     ]
 }

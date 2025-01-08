@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
-    <filter root="/conf/demo" mode="merge"/>
+    <filter root="/conf/demo" mode="update"/>
     <filter root="/content/demo" mode="merge"/>
     <filter root="/content/dam/demo/asset.jpg" mode="merge"/>
     <filter root="/content/experience-fragments/demo" mode="merge"/>
+	<filter root="/conf/global/settings/workflow/models/create-profile-page" mode="update"/>
+	<filter root="/conf/global/settings/workflow/launcher/config/-1106389028" mode="update"/>
+	<filter root="/conf/global/settings/workflow/launcher/config/-1334523383" mode="update"/>
+	<filter root="/var/workflow/models/create-profile-page" mode="update"/>
 </workspaceFilter>

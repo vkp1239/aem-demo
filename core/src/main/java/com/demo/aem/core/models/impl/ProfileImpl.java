@@ -13,10 +13,7 @@ import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.*;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Model(adaptables = {SlingHttpServletRequest.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL, adapters = Profile.class,
@@ -119,8 +116,10 @@ public class ProfileImpl implements Profile {
         List<Map<String, String>> skillList = new ArrayList<>();
         for (Resource item : skills.getChildren()) {
             Map<String, String> values = new HashMap<>();
-            values.put("skill", item.getValueMap().get("skill").toString());
-            values.put("level", item.getValueMap().get("level").toString());
+            String skill = Objects.toString(item.getValueMap().get("skill"), "beginner");
+            String level = Objects.toString(item.getValueMap().get("level"), "beginner");
+            values.put("skill", skill);
+            values.put("level", level);
             skillList.add(values);
         }
         return skillList;
